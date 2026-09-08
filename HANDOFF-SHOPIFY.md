@@ -80,9 +80,24 @@ lada-band), `page.lada.json`, `page.brands.json`.
 
 ### Assets
 `kj-v2.css` (~27 KB, the whole v2 design layer, extends `site.css`) and
-`kj-v2.js` (~7 KB — hero slideshow, marquee duplication, touch image swap,
-carousel tabs, split dots; all progressive enhancement, nothing breaks with JS
-off).
+`kj-v2.js` (~9 KB — hero slideshow, the marquee motion engine, touch image
+swap, carousel tabs, split dots; all progressive enhancement, nothing breaks
+with JS off).
+
+### Inventory tooling (`tools/`, added by Hunain)
+`build_inventory.py research.json [images.json] [start_sku=10015]` turns
+catalogue research into a Shopify import CSV under the white-label rule —
+Khan Jee titles, `KJC-LU-#####` SKUs continuing the existing sequence, vendor
+"Khan Jee", the five `custom.by_*` metafields normalised (fabric, pieces,
+type, season, colour), and alt text that never names the supplier. The
+SKU → supplier map goes to `private/kjc_master_additions.csv`.
+
+`fetch_images.py inventory.json [skip_brands]` pulls image URLs from each
+cleared brand's own `/products/<handle>.json` feed into `private/images.json`.
+A brand without image clearance is one entry in the skip list.
+
+**`private/` is gitignored** — that is where the confidential SKU → supplier
+map lives. Keep it that way.
 
 ### Not yet done
 - **`main-product.liquid` (the product page) is still the basic first-build
@@ -223,6 +238,8 @@ back for the Horizon version.
 ## 8. Do these next, in this order
 
 1. **Publish the draft theme by hand** and look at the preview.
+   Everything through Hunain's 8 Sep marquee/type/tooling work is already
+   pushed to the branch and deployed to the draft theme.
 2. Redesign `main-product.liquid` (§3).
 3. Map the product images and take the 13 products ACTIVE (§6).
 4. Confirm two department calls with the client: **Gul Ahmad** is currently
