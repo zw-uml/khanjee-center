@@ -49,16 +49,19 @@ single biggest trap in this handoff.
 | | |
 |---|---|
 | Store | `khanjeecenter.myshopify.com` — public domain `www.khanjeecenter.com` |
-| **Live theme** | `Khan Jee Liquid Port - fix` — `158157045933` |
-| **Draft theme (all v2 work)** | `Khan Jee — v2 Design` — `158200332461` |
-| Draft preview | `https://www.khanjeecenter.com/?preview_theme_id=158200332461` |
+| **Live theme** | `Khan Jee — v2 Design` — `158200332461` (published 8 Sep) |
+| **Draft theme (current work)** | `Khan Jee — v2.1 marks + cart` — `158223007917` |
+| Draft preview | `https://www.khanjeecenter.com/?preview_theme_id=158223007917` |
+| Previous theme | `Khan Jee Liquid Port - fix` — `158157045933`, unpublished |
 | Location (inventory) | `gid://shopify/Location/88274272429` |
 | Branch | `claude/shopify-store-integration-f96pko` (PR #1, open, no CI) |
 | Admin API token | in Hunain's `SHOPIFY.md`. **Never paste it into a chat window.** |
 
-**The draft theme is not published.** Publishing must be done by hand in
-Shopify admin → Online Store → Themes → Actions → Publish. Automated publishing
-is blocked, so nobody has done it yet — this is the #1 pending item.
+**v2 is live.** Because writes against the live theme are blocked, each round
+of fixes now goes: duplicate the live theme → upsert into the duplicate →
+a merchant publishes it by hand in Shopify admin → Online Store → Themes →
+Actions → Publish. Automated publishing is blocked, so that last step is
+always a person.
 
 ---
 
@@ -237,9 +240,8 @@ back for the Horizon version.
 
 ## 8. Do these next, in this order
 
-1. **Publish the draft theme by hand** and look at the preview.
-   Everything through Hunain's 8 Sep marquee/type/tooling work is already
-   pushed to the branch and deployed to the draft theme.
+1. **Publish `Khan Jee — v2.1 marks + cart` (158223007917)** — it carries the
+   restored Khan Jee mark, the new Lada mark, and the AJAX add-to-cart.
 2. Redesign `main-product.liquid` (§3).
 3. Map the product images and take the 13 products ACTIVE (§6).
 4. Confirm two department calls with the client: **Gul Ahmad** is currently
