@@ -408,3 +408,39 @@
 .bdir__fabh{margin:var(--s4) 0 var(--s2);font-size:.66rem;letter-spacing:.22em;text-transform:uppercase;font-weight:600;color:var(--text)}
 .bdir__fab .chiprow{padding-bottom:var(--s2)}
 .bdir__cell--lada span{color:var(--gold);letter-spacing:.06em}
+
+/* ============================================================
+   Marks and cart feedback
+   ============================================================ */
+
+/* The Lada wordmark is a drawn mark now, not set type, so the old
+   font-size/letter-spacing on .lada__wordmark no longer drives it. */
+.lada-mark{width:100%;height:auto;display:block}
+.lada__wordmark{font-size:0;line-height:0;margin:var(--s5) 0 0}
+.lada__mark--hero{width:clamp(150px,20vw,246px);color:var(--lada-champagne)}
+.lada__mark{width:clamp(132px,16vw,190px);margin:0 auto;color:var(--gold)}
+.lada .lada__mark + .lada__by{margin-top:var(--s4)}
+
+/* Header count: hidden at zero rather than absent, so the AJAX add has
+   something to write into without rebuilding the header. */
+.hdr__tools .num{margin-left:-6px;font-size:.72rem;font-weight:600;color:var(--accent)}
+
+/* ---------- add-to-cart toast ---------- */
+.kjtoast{position:fixed;z-index:120;left:50%;bottom:var(--s5);transform:translate(-50%,140%);
+  display:flex;align-items:center;gap:var(--s4);max-width:min(92vw,520px);
+  padding:.9rem 1.1rem;background:var(--surface-dark);color:#fff;
+  box-shadow:0 10px 40px rgba(var(--dark-rgb),.35);
+  font-family:var(--font-ui);font-size:.88rem;line-height:1.4;
+  opacity:0;visibility:hidden;transition:transform .34s var(--ease),opacity .34s var(--ease),visibility .34s}
+.kjtoast.is-in{transform:translate(-50%,0);opacity:1;visibility:visible}
+.kjtoast--err{background:var(--error)}
+.kjtoast span{flex:1 1 auto}
+.kjtoast a{flex:0 0 auto;color:var(--gold);font-size:.7rem;font-weight:600;
+  letter-spacing:.18em;text-transform:uppercase;text-decoration:underline;
+  text-underline-offset:3px;padding-block:8px}
+.kjtoast--err a{color:#fff}
+@media (max-width:640px){.kjtoast{left:var(--s4);right:var(--s4);max-width:none;transform:translateY(140%)}
+  .kjtoast.is-in{transform:none}}
+
+/* A button mid-request must not look clickable. */
+.pcard__quick[disabled],.btn[disabled]{opacity:.62;cursor:default;pointer-events:none}

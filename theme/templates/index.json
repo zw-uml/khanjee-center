@@ -9,7 +9,7 @@
             "asset_file": "hiran-minar-2560.jpg",
             "focal": "center",
             "align": "centre",
-            "eyebrow": "Since 1978 \u00b7 Sheikhupura",
+            "eyebrow": "Since 1978 · Sheikhupura",
             "heading": "Khan Jee",
             "sub": "Unstitched cloth for men and women. All brands under one roof.",
             "cta": "Shop the shelf",
@@ -193,9 +193,9 @@
         "s1": {
           "type": "slide",
           "settings": {
-            "asset_file": "women-unstitched.jpg",
-            "caption": "Unstitched",
-            "link": "/collections/ladies-unstitched"
+            "asset_file": "women-shawls.jpg",
+            "caption": "Ladies shawls",
+            "link": "/collections/ladies-fabric-shawls"
           }
         },
         "s2": {
@@ -209,9 +209,9 @@
         "s3": {
           "type": "slide",
           "settings": {
-            "asset_file": "men-unstitched.jpg",
-            "caption": "Gents",
-            "link": "/collections/gents-unstitched"
+            "asset_file": "men-shawls.jpg",
+            "caption": "Gents shawls",
+            "link": "/collections/gents-fabric-shawls"
           }
         }
       },
@@ -223,7 +223,7 @@
       "settings": {
         "eyebrow": "This season",
         "heading": "Shop by collection",
-        "text": "Fresh lawn, khaddar and karandi on the shelf now \u2014 cut by the metre or taken as a full unstitched suit.",
+        "text": "Fresh lawn, khaddar and karandi on the shelf now — cut by the metre or taken as a full unstitched suit.",
         "cta": "Shop the look",
         "link": "/collections/all"
       }
@@ -258,7 +258,7 @@
       "type": "brand-marquee",
       "settings": {
         "heading": "All brands under one roof",
-        "sub": "Sixty-plus houses on one shelf in Sheikhupura, plus our own label \u2014 Lada, woven in-house.",
+        "sub": "Sixty-plus houses on one shelf in Sheikhupura, plus our own label — Lada, woven in-house.",
         "link_label": "See every brand we stock"
       }
     },

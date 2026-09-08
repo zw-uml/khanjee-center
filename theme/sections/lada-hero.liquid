@@ -13,7 +13,7 @@
 
   <div class="lada__wrap lada__hero-in">
     <p class="lada__eyebrow">{{ section.settings.eyebrow | default: 'Woven in-house · Khan Jee' }}</p>
-    <h1 class="lada__wordmark">{{ section.settings.heading | default: 'Lada' }}</h1>
+    <h1 class="lada__wordmark">{% render 'lada-mark', class: 'lada__mark--hero' %}</h1>
     <p class="lada__lede">{{ section.settings.lede | default: 'Spun, woven and finished under our own roof. The only cloth in this shop whose every thread we answer for.' }}</p>
 
     <div class="lada__ctas">

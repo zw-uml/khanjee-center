@@ -186,6 +186,100 @@
     syncBar(activePanel());
   });
 
+  /* ---------------- add to cart ----------------
+     Every add-to-cart on the site was a plain form post: the whole page tore
+     down and rebuilt on the cart page, with no confirmation that anything had
+     happened and no way back to where you were. Worse, a rejected add (stock
+     gone between page load and click) came back as Shopify's raw error page.
+
+     This intercepts the post, sends it to /cart/add.js, updates the header
+     count and says what happened. With JS off the original form post still
+     works, so nothing here is load-bearing. */
+  var cartCount = document.querySelector('[data-cart-count]');
+
+  function setCount(n) {
+    if (!cartCount) return;
+    cartCount.textContent = n;
+    cartCount.hidden = n < 1;
+  }
+
+  var toastEl = null, toastTimer = null;
+  function toast(msg, isError) {
+    if (!toastEl) {
+      toastEl = document.createElement('div');
+      toastEl.className = 'kjtoast';
+      toastEl.setAttribute('role', 'status');
+      toastEl.setAttribute('aria-live', 'polite');
+      document.body.appendChild(toastEl);
+    }
+    toastEl.classList.toggle('kjtoast--err', !!isError);
+    toastEl.innerHTML = '';
+    var span = document.createElement('span');
+    span.textContent = msg;
+    toastEl.appendChild(span);
+    if (!isError) {
+      var a = document.createElement('a');
+      a.href = window.Shopify && Shopify.routes ? Shopify.routes.root + 'cart' : '/cart';
+      a.textContent = 'View cart';
+      toastEl.appendChild(a);
+    }
+    /* restart the entry animation even if a toast is already up */
+    toastEl.classList.remove('is-in');
+    void toastEl.offsetWidth;
+    toastEl.classList.add('is-in');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { toastEl.classList.remove('is-in'); }, 4200);
+  }
+
+  function refreshCount() {
+    fetch('/cart.js', { headers: { 'Accept': 'application/json' } })
+      .then(function (r) { return r.json(); })
+      .then(function (c) { setCount(c.item_count); })
+      .catch(function () { /* count stays as rendered */ });
+  }
+
+  document.addEventListener('submit', function (e) {
+    var form = e.target;
+    if (!form.matches('form[action*="/cart/add"]')) return;
+    if (!window.fetch || !window.FormData) return;   /* let the browser post it */
+
+    e.preventDefault();
+    var btn = form.querySelector('[type="submit"]');
+    if (btn && btn.dataset.busy === '1') return;
+    var label = btn ? btn.textContent : '';
+    if (btn) {
+      btn.dataset.busy = '1';
+      btn.disabled = true;
+      btn.textContent = 'Adding…';
+    }
+
+    fetch('/cart/add.js', {
+      method: 'POST',
+      headers: { 'Accept': 'application/json' },
+      body: new FormData(form)
+    })
+      .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, data: d }; }); })
+      .then(function (res) {
+        if (!res.ok) {
+          /* Shopify puts the human-readable reason in description */
+          toast(res.data.description || res.data.message || 'That could not be added.', true);
+          return;
+        }
+        toast((res.data.title || 'Item') + ' added to your cart.');
+        refreshCount();
+      })
+      .catch(function () {
+        toast('Something went wrong. Please try again.', true);
+      })
+      .then(function () {
+        if (btn) {
+          btn.dataset.busy = '';
+          btn.disabled = false;
+          btn.textContent = label;
+        }
+      });
+  });
+
   /* ---------------- collection split: dots drive the rail ---------------- */
   document.querySelectorAll('[data-csplit]').forEach(function (root) {
     var rail = root.querySelector('[data-csplit-rail]');
