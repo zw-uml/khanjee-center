@@ -1,0 +1,20 @@
+<section class="lada">
+  <div class="wrap" data-reveal>
+    {% render 'lada-mark', class: 'lada__mark' %}
+    <p class="eyebrow lada__by">{{ section.settings.by_line }}</p>
+    <p class="lada__copy">{{ section.settings.copy }}</p>
+    <a class="btn btn--ghost" href="{{ section.settings.link }}">{{ section.settings.link_label }}</a>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Lada band",
+  "settings": [
+    { "type": "text", "id": "by_line", "label": "By line", "default": "by Khan Jee" },
+    { "type": "textarea", "id": "copy", "label": "Copy", "default": "Our own label. Traditional eastern waistcoats, cut and finished in Sheikhupura for the men who have been buying their cloth from us for forty years." },
+    { "type": "text", "id": "link", "label": "Link (relative URL)", "default": "/collections/lada" },
+    { "type": "text", "id": "link_label", "label": "Link label", "default": "See Lada" }
+  ],
+  "presets": [{ "name": "Lada band" }]
+}
+{% endschema %}

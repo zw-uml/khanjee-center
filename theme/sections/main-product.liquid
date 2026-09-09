@@ -1,0 +1,196 @@
+{%- comment -%}
+  sections/main-product.liquid
+
+  Unstitched cloth has a single default variant — there is no size or colour
+  picker to build. What a customer actually needs to decide is what the cloth
+  is, how much of it there is, and whether they trust us to send it. So the
+  page is a gallery, a spec table off the by_* metafields, and the shop's
+  standing terms.
+
+  Naming rule, same as the product card: only Dynasty and Pasha are sold under
+  their own cloth name. Everything else is a Khan Jee piece shown with its KJC
+  SKU, and the supplier never appears — not in the title, not in alt text,
+  not in the WhatsApp message.
+{%- endcomment -%}
+
+{%- liquid
+  assign variant = product.selected_or_first_available_variant
+  assign sku = variant.sku
+
+  assign named_houses = 'Dynasty,Pasha' | split: ','
+  assign show_vendor = false
+  for house in named_houses
+    if product.vendor == house
+      assign show_vendor = true
+    endif
+  endfor
+
+  assign fabric = product.metafields.custom.by_fabric.value
+  assign pieces = product.metafields.custom.by_pieces.value
+  assign ptype  = product.metafields.custom.by_type.value
+  assign season = product.metafields.custom.by_season.value
+  assign colour = product.metafields.custom.by_color.value
+  assign in_house = product.metafields.lada.in_house.value
+
+  assign wa_number = section.settings.whatsapp | default: '923019090590'
+  capture wa_text
+    echo 'Assalam o Alaikum, I would like to ask about '
+    echo product.title | split: ' — ' | first
+    if sku
+      echo ' (' | append: sku | append: ')'
+    endif
+  endcapture
+-%}
+
+<div class="wrap">
+  <nav class="crumb" aria-label="Breadcrumb">
+    <a href="{{ routes.root_url }}">Home</a><i>/</i>
+    {%- if collection -%}<a href="{{ collection.url }}">{{ collection.title }}</a><i>/</i>{%- endif -%}
+    <span aria-current="page">{{ product.title | split: ' — ' | first }}</span>
+  </nav>
+</div>
+
+<div class="wrap pdp" data-pdp>
+  <div class="pdp__gallery">
+    <div class="pdp__stage">
+      {%- if product.media.size > 0 -%}
+        {%- for media in product.media limit: 8 -%}
+          <img class="pdp__img{% if forloop.first %} is-active{% endif %}"
+               data-pdp-img="{{ forloop.index0 }}"
+               src="{{ media | image_url: width: 1400 }}"
+               srcset="{{ media | image_url: width: 700 }} 700w,
+                       {{ media | image_url: width: 1400 }} 1400w"
+               sizes="(min-width:1000px) 52vw, 100vw"
+               width="1400" height="1750"
+               {% if forloop.first %}fetchpriority="high"{% else %}loading="lazy"{% endif %}
+               decoding="async"
+               alt="{{ media.alt | default: product.title | escape }}">
+        {%- endfor -%}
+      {%- else -%}
+        <div class="pdp__noimg"><span>Photograph coming</span></div>
+      {%- endif -%}
+
+      {%- if product.compare_at_price > product.price -%}
+        {%- assign off = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round -%}
+        <span class="pdp__flag pdp__flag--off">{{ off }}% off</span>
+      {%- elsif in_house -%}
+        <span class="pdp__flag pdp__flag--seal">Khan Jee Seal</span>
+      {%- endif -%}
+    </div>
+
+    {%- if product.media.size > 1 -%}
+      <div class="pdp__thumbs" role="tablist" aria-label="Product images">
+        {%- for media in product.media limit: 8 -%}
+          <button type="button" class="pdp__thumb{% if forloop.first %} is-active{% endif %}"
+                  data-pdp-thumb="{{ forloop.index0 }}" role="tab"
+                  aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+                  aria-label="Image {{ forloop.index }}">
+            <img src="{{ media | image_url: width: 200 }}" width="200" height="250"
+                 loading="lazy" decoding="async" alt="">
+          </button>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+
+  <div class="pdp__info">
+    {%- if show_vendor -%}
+      <p class="pdp__house">{{ product.vendor }}</p>
+    {%- elsif in_house -%}
+      <p class="pdp__house">Lada, by Khan Jee</p>
+    {%- endif -%}
+
+    <h1 class="pdp__title">{{ product.title | split: ' — ' | first }}</h1>
+    {%- if sku -%}<p class="pdp__sku">{{ sku }}</p>{%- endif -%}
+
+    <p class="pdp__price">
+      {%- if product.compare_at_price > product.price -%}
+        <s>{{ product.compare_at_price | money }}</s>
+        <span class="now">{{ variant.price | money }}</span>
+      {%- else -%}
+        {{ variant.price | money }}
+      {%- endif -%}
+    </p>
+    <p class="pdp__tax">Price is for the full unstitched piece. Cutting and stitching are quoted in the shop.</p>
+
+    {%- form 'product', product, class: 'pdp__form' -%}
+      <input type="hidden" name="id" value="{{ variant.id }}">
+      <input type="hidden" name="quantity" value="1">
+      <button type="submit" class="btn pdp__add" {% unless variant.available %}disabled{% endunless %}>
+        {% if variant.available %}Add to cart{% else %}Out of stock{% endif %}
+      </button>
+    {%- endform -%}
+
+    <a class="btn btn--ghost pdp__wa"
+       href="https://wa.me/{{ wa_number }}?text={{ wa_text | strip | url_encode }}"
+       target="_blank" rel="noopener">
+      Ask on WhatsApp
+    </a>
+
+    {%- unless variant.available -%}
+      <p class="pdp__oos">This piece has gone from the shelf. Message us — the same cloth often comes back in, and we can tell you when.</p>
+    {%- endunless -%}
+
+    <ul class="pdp__trust">
+      <li><strong>Open the parcel first.</strong> Pay the rider only once you have seen the cloth.</li>
+      <li><strong>Seven days to exchange.</strong> Uncut and unwashed, with the receipt.</li>
+      <li><strong>Cut to measure.</strong> Bring the piece back to the shop and we will cut it for you.</li>
+      <li><strong>Cash on delivery</strong> across Pakistan, or card at the counter.</li>
+    </ul>
+
+    {%- if fabric or pieces or ptype or season or colour -%}
+      <div class="pdp__spec">
+        <h2 class="pdp__h2">The cloth</h2>
+        <dl>
+          {%- if fabric -%}<div><dt>Fabric</dt><dd>{{ fabric }}</dd></div>{%- endif -%}
+          {%- if pieces -%}<div><dt>Pieces</dt><dd>{{ pieces }}</dd></div>{%- endif -%}
+          {%- if ptype  -%}<div><dt>Finish</dt><dd>{{ ptype }}</dd></div>{%- endif -%}
+          {%- if season -%}<div><dt>Season</dt><dd>{{ season }}</dd></div>{%- endif -%}
+          {%- if colour -%}<div><dt>Colour</dt><dd>{{ colour }}</dd></div>{%- endif -%}
+        </dl>
+      </div>
+    {%- endif -%}
+
+    {%- if product.description != blank -%}
+      <div class="pdp__desc rte">{{ product.description }}</div>
+    {%- endif -%}
+  </div>
+</div>
+
+{%- liquid
+  assign related = null
+  for c in product.collections
+    if c.handle != 'all' and related == null
+      assign related = c
+    endif
+  endfor
+-%}
+{%- if related and related.products.size > 1 -%}
+  <section class="wrap pdp__more">
+    <div class="shead">
+      <div>
+        <h2 class="shead__t">More from {{ related.title }}</h2>
+        <p class="shead__s">On the same shelf in Sheikhupura.</p>
+      </div>
+      <a class="shead__link" href="{{ related.url }}">See all</a>
+    </div>
+    <div class="pgrid">
+      {%- assign shown = 0 -%}
+      {%- for p in related.products limit: 8 -%}
+        {%- if p.id != product.id and shown < 4 -%}
+          {% render 'product-card', product: p, index: forloop.index0 %}
+          {%- assign shown = shown | plus: 1 -%}
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Product",
+  "settings": [
+    { "type": "text", "id": "whatsapp", "label": "WhatsApp number (digits only, with country code)", "default": "923019090590" }
+  ]
+}
+{% endschema %}

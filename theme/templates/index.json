@@ -1,0 +1,279 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero-slideshow",
+      "blocks": {
+        "s1": {
+          "type": "slide",
+          "settings": {
+            "asset_file": "hiran-minar-2560.jpg",
+            "focal": "center",
+            "align": "centre",
+            "eyebrow": "Since 1978 · Sheikhupura",
+            "heading": "Khan Jee",
+            "sub": "Unstitched cloth for men and women. All brands under one roof.",
+            "cta": "Shop the shelf",
+            "link": "/collections/all"
+          }
+        },
+        "s2": {
+          "type": "slide",
+          "settings": {
+            "asset_file": "women-unstitched.jpg",
+            "focal": "center",
+            "align": "centre",
+            "eyebrow": "Just in",
+            "heading": "New this week",
+            "sub": "The latest lawn, khaddar and karandi on the shelf.",
+            "cta": "See what landed",
+            "link": "/collections/ladies-unstitched"
+          }
+        },
+        "s3": {
+          "type": "slide",
+          "settings": {
+            "asset_file": "bridal.jpg",
+            "focal": "center",
+            "align": "centre",
+            "eyebrow": "Bridal & formal",
+            "heading": "For the season",
+            "sub": "Hand-worked nets, jamawar and velvet, cut to your measurement.",
+            "cta": "Bridal collection",
+            "link": "/collections/bridal"
+          }
+        },
+        "s4": {
+          "type": "slide",
+          "settings": {
+            "asset_file": "lada-waistcoats.jpg",
+            "focal": "center",
+            "align": "centre",
+            "eyebrow": "Made in-house",
+            "heading": "Lada",
+            "sub": "Our own label. Every thread we answer for.",
+            "cta": "Enter Lada",
+            "link": "/pages/lada"
+          }
+        }
+      },
+      "block_order": [
+        "s1",
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "settings": {
+        "autoplay_seconds": 6,
+        "aria_label": "Featured"
+      }
+    },
+    "categories": {
+      "type": "category-rail",
+      "blocks": {
+        "c1": {
+          "type": "card",
+          "settings": {
+            "asset_file": "men-unstitched.jpg",
+            "label": "Gents Unstitched",
+            "link": "/collections/gents-unstitched"
+          }
+        },
+        "c2": {
+          "type": "card",
+          "settings": {
+            "asset_file": "women-unstitched.jpg",
+            "label": "Ladies Unstitched",
+            "link": "/collections/ladies-unstitched"
+          }
+        },
+        "c3": {
+          "type": "card",
+          "settings": {
+            "asset_file": "bridal.jpg",
+            "label": "Bridal & Formal",
+            "link": "/collections/bridal"
+          }
+        },
+        "c4": {
+          "type": "card",
+          "settings": {
+            "asset_file": "men-shawls.jpg",
+            "label": "Gents Shawls",
+            "link": "/collections/gents-fabric-shawls"
+          }
+        },
+        "c5": {
+          "type": "card",
+          "settings": {
+            "asset_file": "women-shawls.jpg",
+            "label": "Ladies Shawls",
+            "link": "/collections/ladies-fabric-shawls"
+          }
+        },
+        "c6": {
+          "type": "card",
+          "settings": {
+            "asset_file": "lada-waistcoats.jpg",
+            "label": "Lada by Khan Jee",
+            "link": "/pages/lada"
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3",
+        "c4",
+        "c5",
+        "c6"
+      ],
+      "settings": {
+        "heading": "Shop by category",
+        "sub": "Unstitched cloth, cut to your measurement in the shop.",
+        "link_label": "View all",
+        "link": "/collections/all"
+      }
+    },
+    "trending": {
+      "type": "product-carousel",
+      "blocks": {
+        "t1": {
+          "type": "tab",
+          "settings": {
+            "label": "New arrivals",
+            "collection": "gents-grace"
+          }
+        },
+        "t2": {
+          "type": "tab",
+          "settings": {
+            "label": "Gents",
+            "collection": "gents-unstitched"
+          }
+        },
+        "t3": {
+          "type": "tab",
+          "settings": {
+            "label": "Ladies",
+            "collection": "ladies-unstitched"
+          }
+        },
+        "t4": {
+          "type": "tab",
+          "settings": {
+            "label": "Bridal",
+            "collection": "bridal"
+          }
+        },
+        "t5": {
+          "type": "tab",
+          "settings": {
+            "label": "Lada",
+            "collection": "lada"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5"
+      ],
+      "settings": {
+        "heading": "Most trending",
+        "sub": "What is moving off the shelf this week.",
+        "link": "/collections/all",
+        "count": 10
+      }
+    },
+    "split": {
+      "type": "collection-split",
+      "blocks": {
+        "s1": {
+          "type": "slide",
+          "settings": {
+            "asset_file": "women-shawls.jpg",
+            "caption": "Ladies shawls",
+            "link": "/collections/ladies-fabric-shawls"
+          }
+        },
+        "s2": {
+          "type": "slide",
+          "settings": {
+            "asset_file": "bridal.jpg",
+            "caption": "Bridal",
+            "link": "/collections/bridal"
+          }
+        },
+        "s3": {
+          "type": "slide",
+          "settings": {
+            "asset_file": "men-shawls.jpg",
+            "caption": "Gents shawls",
+            "link": "/collections/gents-fabric-shawls"
+          }
+        }
+      },
+      "block_order": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "settings": {
+        "eyebrow": "This season",
+        "heading": "Shop by collection",
+        "text": "Fresh lawn, khaddar and karandi on the shelf now — cut by the metre or taken as a full unstitched suit.",
+        "cta": "Shop the look",
+        "link": "/collections/all"
+      }
+    },
+    "pair": {
+      "type": "editorial-pair",
+      "blocks": {
+        "p1": {
+          "type": "item",
+          "settings": {
+            "asset_file": "men-unstitched.jpg",
+            "label": "Gents",
+            "link": "/collections/gents-unstitched"
+          }
+        },
+        "p2": {
+          "type": "item",
+          "settings": {
+            "asset_file": "women-unstitched.jpg",
+            "label": "Ladies",
+            "link": "/collections/ladies-unstitched"
+          }
+        }
+      },
+      "block_order": [
+        "p1",
+        "p2"
+      ],
+      "settings": {}
+    },
+    "brand-marquee": {
+      "type": "brand-marquee",
+      "settings": {
+        "heading": "All brands under one roof",
+        "sub": "Sixty-plus houses on one shelf in Sheikhupura, plus our own label — Lada, woven in-house.",
+        "link_label": "See every brand we stock"
+      }
+    },
+    "lada-band": {
+      "type": "lada-band",
+      "settings": {}
+    }
+  },
+  "order": [
+    "hero",
+    "categories",
+    "trending",
+    "split",
+    "pair",
+    "brand-marquee",
+    "lada-band"
+  ]
+}
