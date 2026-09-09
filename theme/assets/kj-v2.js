@@ -186,6 +186,26 @@
     syncBar(activePanel());
   });
 
+  /* ---------------- product gallery ---------------- */
+  document.querySelectorAll('[data-pdp]').forEach(function (root) {
+    var imgs   = Array.prototype.slice.call(root.querySelectorAll('[data-pdp-img]'));
+    var thumbs = Array.prototype.slice.call(root.querySelectorAll('[data-pdp-thumb]'));
+    if (imgs.length < 2 || !thumbs.length) return;
+
+    function show(n) {
+      imgs.forEach(function (im, k) { im.classList.toggle('is-active', k === n); });
+      thumbs.forEach(function (t, k) {
+        t.classList.toggle('is-active', k === n);
+        t.setAttribute('aria-selected', k === n ? 'true' : 'false');
+      });
+    }
+    thumbs.forEach(function (t) {
+      var i = parseInt(t.dataset.pdpThumb, 10);
+      t.addEventListener('click', function () { show(i); });
+      t.addEventListener('mouseenter', function () { show(i); });
+    });
+  });
+
   /* ---------------- add to cart ----------------
      Every add-to-cart on the site was a plain form post: the whole page tore
      down and rebuilt on the cart page, with no confirmation that anything had
